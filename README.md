@@ -117,6 +117,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`removeComponent`](#removeComponent)
 - [`autocomplete`](#autocomplete)
 - [`readOnly`](#readOnly)
+- [`handleTagClick`](#handleTagClick)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -304,15 +305,27 @@ This option has no effect if there are no [`suggestions`](#suggestionsOption).
 ##### readOnly (optional)
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
 
+<a name="handleTagClick"></a>
+##### handleTagClick (optional)
+Optional event handler for tag click
+
+```js
+<ReactTags
+    handleTagClick={this.handleTagClick}
+    ...>
+```
+
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
 
 - `ReactTags__tags`
 - `ReactTags__tagInput`
+- `ReactTags__tagInputField`
 - `ReactTags__selected`
 - `ReactTags__selected ReactTags__tag`
 - `ReactTags__selected ReactTags__remove`
 - `ReactTags__suggestions`
+- `ReactTags__tagLabel`
 
 An example can be found in `/example/reactTags.css`.
 
@@ -324,10 +337,12 @@ a `classNames` prop.
     classNames={{
       tags: 'tagsClass',
       tagInput: 'tagInputClass',
+      tagInputField: 'tagInputFieldClass',
       selected: 'selectedClass',
       tag: 'tagClass',
       remove: 'removeClass',
-      suggestions: 'suggestionsClass'
+      suggestions: 'suggestionsClass',
+      tagLabel: 'tagLabelClass'
     }}
     ...>
 ```

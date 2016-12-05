@@ -35,10 +35,12 @@ var Keys = {
 var DefaultClassNames = {
     tags: 'ReactTags__tags',
     tagInput: 'ReactTags__tagInput',
+    tagInputField: 'ReactTags__tagInputField',
     selected: 'ReactTags__selected',
     tag: 'ReactTags__tag',
     remove: 'ReactTags__remove',
-    suggestions: 'ReactTags__suggestions'
+    suggestions: 'ReactTags__suggestions',
+    tagLabel: 'ReactTags__tagLabel'
 };
 
 var ReactTags = _react2.default.createClass({
@@ -64,7 +66,8 @@ var ReactTags = _react2.default.createClass({
         removeComponent: _react2.default.PropTypes.func,
         autocomplete: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.bool, _react2.default.PropTypes.number]),
         readOnly: _react2.default.PropTypes.bool,
-        classNames: _react2.default.PropTypes.object
+        classNames: _react2.default.PropTypes.object,
+        handleTagClick: _react2.default.PropTypes.func
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -77,7 +80,8 @@ var ReactTags = _react2.default.createClass({
             allowDeleteFromEmptyInput: true,
             minQueryLength: 2,
             autocomplete: false,
-            readOnly: false
+            readOnly: false,
+            handleTagClick: function handleTagClick() {}
         };
     },
     componentWillMount: function componentWillMount() {
@@ -145,10 +149,10 @@ var ReactTags = _react2.default.createClass({
         }
     },
     handleKeyDown: function handleKeyDown(e) {
-        var _state = this.state;
-        var query = _state.query;
-        var selectedIndex = _state.selectedIndex;
-        var suggestions = _state.suggestions;
+        var _state = this.state,
+            query = _state.query,
+            selectedIndex = _state.selectedIndex,
+            suggestions = _state.suggestions;
 
         // hide suggestions menu on escape
 
@@ -231,7 +235,7 @@ var ReactTags = _react2.default.createClass({
         var string = clipboardData.getData('text');
         var regExp = new RegExp("[" + delimiterChars + "]+");
         string.split(regExp).forEach(function (tag) {
-            return _this.props.handleAddition(tag);
+            return _this.props.handleInputChange ? _this.props.handleInputChange(string) : _this.props.handleAddition(tag);
         });
     },
     addTag: function addTag(tag) {
@@ -296,7 +300,8 @@ var ReactTags = _react2.default.createClass({
                 moveTag: moveTag,
                 removeComponent: this.props.removeComponent,
                 readOnly: this.props.readOnly,
-                classNames: this.state.classNames });
+                classNames: this.state.classNames,
+                handleTagClick: this.props.handleTagClick });
         }.bind(this));
 
         // get the suggestions for the given query
@@ -309,6 +314,7 @@ var ReactTags = _react2.default.createClass({
             "div",
             { className: this.state.classNames.tagInput },
             _react2.default.createElement("input", { ref: "input",
+                className: this.state.classNames.tagInputField,
                 type: "text",
                 placeholder: placeholder,
                 "aria-label": placeholder,

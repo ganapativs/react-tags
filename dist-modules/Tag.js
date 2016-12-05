@@ -10,9 +10,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDnd = require('react-dnd');
 
-var _lodash = require('lodash.flow');
-
-var _lodash2 = _interopRequireDefault(_lodash);
+var _lodash = require('lodash');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73,14 +71,15 @@ var Tag = function (_Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Tag.__proto__ || Object.getPrototypeOf(Tag)).call.apply(_ref, [this].concat(args))), _this), _this.render = function () {
-      var _this2 = _this;
-      var props = _this2.props;
+      var _this2 = _this,
+          props = _this2.props;
 
       var label = props.tag[props.labelField];
-      var connectDragSource = props.connectDragSource;
-      var isDragging = props.isDragging;
-      var connectDropTarget = props.connectDropTarget;
-      var readOnly = props.readOnly;
+      var connectDragSource = props.connectDragSource,
+          isDragging = props.isDragging,
+          connectDropTarget = props.connectDropTarget,
+          readOnly = props.readOnly,
+          handleTagClick = props.handleTagClick;
 
       var CustomRemoveComponent = props.removeComponent;
       var RemoveComponent = _react2.default.createClass({
@@ -102,7 +101,11 @@ var Tag = function (_Component) {
       var tagComponent = _react2.default.createElement(
         'span',
         { style: { opacity: isDragging ? 0 : 1 }, className: props.classNames.tag },
-        label,
+        _react2.default.createElement(
+          'span',
+          { className: props.classNames.tagLabel, onClick: handleTagClick.bind(null, props.tag) },
+          label
+        ),
         _react2.default.createElement(RemoveComponent, { className: props.classNames.remove, onClick: props.onDelete })
       );
       return connectDragSource(connectDropTarget(tagComponent));
@@ -128,4 +131,4 @@ Tag.defaultProps = {
   labelField: 'text',
   readOnly: false
 };
-exports.default = (0, _lodash2.default)((0, _reactDnd.DragSource)(ItemTypes.TAG, tagSource, dragSource), (0, _reactDnd.DropTarget)(ItemTypes.TAG, tagTarget, dropCollect))(Tag);
+exports.default = (0, _lodash.flow)((0, _reactDnd.DragSource)(ItemTypes.TAG, tagSource, dragSource), (0, _reactDnd.DropTarget)(ItemTypes.TAG, tagTarget, dropCollect))(Tag);
