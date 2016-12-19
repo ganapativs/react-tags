@@ -175,7 +175,7 @@ var ReactTags = _react2.default.createClass({
             }
 
             if (query !== "") {
-                if (this.state.selectionMode) {
+                if (this.state.selectionMode && this.state.selectedIndex != -1) {
                     query = this.state.suggestions[this.state.selectedIndex];
                 }
                 this.addTag(query);
@@ -235,7 +235,7 @@ var ReactTags = _react2.default.createClass({
         var string = clipboardData.getData('text');
         var regExp = new RegExp("[" + delimiterChars + "]+");
         string.split(regExp).forEach(function (tag) {
-            return _this.props.handleInputChange ? _this.props.handleInputChange(string) : _this.props.handleAddition(tag);
+            return _this.props.handleInputChange ? _this.handleChange({ target: { value: string } }) : _this.props.handleAddition(tag);
         });
     },
     addTag: function addTag(tag) {
@@ -319,6 +319,7 @@ var ReactTags = _react2.default.createClass({
                 placeholder: placeholder,
                 "aria-label": placeholder,
                 onBlur: this.handleBlur,
+                value: this.state.query,
                 onChange: this.handleChange,
                 onKeyDown: this.handleKeyDown,
                 onPaste: this.handlePaste }),
