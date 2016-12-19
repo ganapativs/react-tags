@@ -135,7 +135,6 @@ var ReactTags = _react2.default.createClass({
         if (selectedIndex >= suggestions.length) {
             selectedIndex = suggestions.length - 1;
         }
-        console.log('query', query);
         this.setState({
             query: query,
             suggestions: suggestions,
