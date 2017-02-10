@@ -124,11 +124,15 @@ var ReactTags = _react2.default.createClass({
         this.setState({ query: "" });
     },
     handleChange: function handleChange(e) {
+        var str = e.target.value;
+        while (str.indexOf("  ") !== -1) {
+            str = str.replace(/  /g, " ");
+        }
         if (this.props.handleInputChange) {
-            this.props.handleInputChange(e.target.value.trim());
+            this.props.handleInputChange(str);
         }
 
-        var query = e.target.value.trim();
+        var query = str;
         var suggestions = this.filteredSuggestions(query, this.props.suggestions);
         var selectedIndex = this.state.selectedIndex;
         // if our selected entry is gonna disappear, select the last entry we will have
