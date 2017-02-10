@@ -128,6 +128,9 @@ var ReactTags = _react2.default.createClass({
         while (str.indexOf("  ") !== -1) {
             str = str.replace(/  /g, " ");
         }
+        if (str.indexOf(' ') === 0) {
+            str = str.replace(/ /, "");
+        }
         if (this.props.handleInputChange) {
             this.props.handleInputChange(str);
         }
