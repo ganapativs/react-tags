@@ -4,6 +4,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -82,22 +88,36 @@ var Tag = function (_Component) {
           handleTagClick = props.handleTagClick;
 
       var CustomRemoveComponent = props.removeComponent;
-      var RemoveComponent = _react2.default.createClass({
-        displayName: 'RemoveComponent',
-        render: function render() {
-          if (readOnly) {
-            return _react2.default.createElement('span', null);
-          }
-          if (CustomRemoveComponent) {
-            return _react2.default.createElement(CustomRemoveComponent, this.props);
-          }
-          return _react2.default.createElement(
-            'a',
-            this.props,
-            String.fromCharCode(215)
-          );
+
+      var RemoveComponent = function (_React$Component) {
+        _inherits(RemoveComponent, _React$Component);
+
+        function RemoveComponent() {
+          _classCallCheck(this, RemoveComponent);
+
+          return _possibleConstructorReturn(this, (RemoveComponent.__proto__ || Object.getPrototypeOf(RemoveComponent)).apply(this, arguments));
         }
-      });
+
+        _createClass(RemoveComponent, [{
+          key: 'render',
+          value: function render() {
+            if (readOnly) {
+              return _react2.default.createElement('span', null);
+            }
+            if (CustomRemoveComponent) {
+              return _react2.default.createElement(CustomRemoveComponent, this.props);
+            }
+            return _react2.default.createElement(
+              'a',
+              this.props,
+              String.fromCharCode(215)
+            );
+          }
+        }]);
+
+        return RemoveComponent;
+      }(_react2.default.Component);
+
       var tagComponent = _react2.default.createElement(
         'span',
         { style: { opacity: isDragging ? 0 : 1 }, className: props.classNames.tag },
@@ -116,16 +136,16 @@ var Tag = function (_Component) {
 }(_react.Component);
 
 Tag.propTypes = {
-  labelField: _react2.default.PropTypes.string,
-  onDelete: _react2.default.PropTypes.func.isRequired,
-  tag: _react2.default.PropTypes.object.isRequired,
-  moveTag: _react2.default.PropTypes.func,
-  removeComponent: _react2.default.PropTypes.func,
-  classNames: _react2.default.PropTypes.object,
-  readOnly: _react2.default.PropTypes.bool,
-  connectDragSource: _react2.default.PropTypes.func.isRequired,
-  isDragging: _react2.default.PropTypes.bool.isRequired,
-  connectDropTarget: _react2.default.PropTypes.func.isRequired
+  labelField: _propTypes2.default.string,
+  onDelete: _propTypes2.default.func.isRequired,
+  tag: _propTypes2.default.object.isRequired,
+  moveTag: _propTypes2.default.func,
+  removeComponent: _propTypes2.default.func,
+  classNames: _propTypes2.default.object,
+  readOnly: _propTypes2.default.bool,
+  connectDragSource: _propTypes2.default.func.isRequired,
+  isDragging: _propTypes2.default.bool.isRequired,
+  connectDropTarget: _propTypes2.default.func.isRequired
 };
 Tag.defaultProps = {
   labelField: 'text',
