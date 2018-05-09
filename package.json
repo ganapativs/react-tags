@@ -1,6 +1,6 @@
 {
   "name": "react-tag-input-latest",
-  "version": "4.5.5",
+  "version": "4.5.6",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/ReactTags.js",
   "scripts": {
@@ -48,10 +48,10 @@
     "npm-run-all": "^4.0.2",
     "opn": "^5.0.0",
     "prettier": "^1.1.0",
-    "react": "^16.0.0",
+    "react": "^16.2.0",
     "react-addons-test-utils": "^15.6.2",
     "react-dnd-test-backend": "^2.5.3",
-    "react-dom": "^16.0.0",
+    "react-dom": "^16.2.0",
     "react-test-renderer": "^16.0.0",
     "sinon": "^3.0.0",
     "webpack": "^3.0.0",
