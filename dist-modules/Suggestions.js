@@ -1,18 +1,18 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _lodash = require('lodash');
+var _lodash = require("lodash");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,6 +32,13 @@ var maybeScrollSuggestionIntoView = function maybeScrollSuggestionIntoView(sugge
   } else if (relativeSuggestionTop < 0) {
     suggestionsContainer.scrollTop += relativeSuggestionTop;
   }
+};
+
+var markIt = function markIt(input, query) {
+  var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
+  return {
+    __html: input.replace(RegExp(escapedRegex, "gi"), "<mark>$&</mark>")
+  };
 };
 
 var Suggestions = function (_Component) {
@@ -57,17 +64,12 @@ var Suggestions = function (_Component) {
     }, _this.componentDidUpdate = function (prevProps) {
       var suggestionsContainer = _this.refs.suggestionsContainer;
       if (suggestionsContainer && prevProps.selectedIndex !== _this.props.selectedIndex) {
-        var activeSuggestion = suggestionsContainer.querySelector('.active');
+        var activeSuggestion = suggestionsContainer.querySelector(".active");
 
         if (activeSuggestion) {
           maybeScrollSuggestionIntoView(activeSuggestion, suggestionsContainer);
         }
       }
-    }, _this.markIt = function (input, query) {
-      var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
-      return {
-        __html: input.replace(RegExp(escapedRegex, "gi"), "<mark>$&</mark>")
-      };
     }, _this.shouldRenderSuggestions = function (query) {
       var _this3 = _this,
           props = _this3.props;
@@ -80,17 +82,13 @@ var Suggestions = function (_Component) {
 
       var suggestions = props.suggestions.map(function (item, i) {
         return _react2.default.createElement(
-          'li',
-          { key: i,
+          "li",
+          {
+            key: i,
             onMouseDown: props.handleClick.bind(null, i),
             onMouseOver: props.handleHover.bind(null, i),
             className: i == props.selectedIndex ? "active" : "" },
-          _react2.default.createElement('span', { dangerouslySetInnerHTML: this.markIt(Object.prototype.toString.call(item) === '[object Object]' ? item.text : item, props.query) }),
-          Object.prototype.toString.call(item) === '[object Object]' && item.addon ? _react2.default.createElement(
-            'span',
-            { style: { color: '#aaa', fontSize: '75%', float: 'right', marginTop: 4 } },
-            item.addon
-          ) : null
+          props.suggestionsRenderer(item, props.query)
         );
       }.bind(_this));
 
@@ -101,14 +99,16 @@ var Suggestions = function (_Component) {
       }
 
       return _react2.default.createElement(
-        'div',
-        { ref: 'suggestionsContainer', className: _this.props.classNames.suggestions },
+        "div",
+        {
+          ref: "suggestionsContainer",
+          className: _this.props.classNames.suggestions },
         _react2.default.createElement(
-          'ul',
+          "ul",
           null,
-          ' ',
+          " ",
           suggestions,
-          ' '
+          " "
         )
       );
     }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -125,6 +125,28 @@ Suggestions.propTypes = {
   handleHover: _propTypes2.default.func.isRequired,
   minQueryLength: _propTypes2.default.number,
   shouldRenderSuggestions: _propTypes2.default.func,
-  classNames: _propTypes2.default.object
+  classNames: _propTypes2.default.object,
+  suggestionsRenderer: _propTypes2.default.func
+};
+Suggestions.defaultProps = {
+  suggestionsRenderer: function suggestionsRenderer(item, query) {
+    var m = markIt(Object.prototype.toString.call(item) === "[object Object]" ? item.text : item, query);
+    return _react2.default.createElement(
+      _react.Fragment,
+      null,
+      _react2.default.createElement("span", { dangerouslySetInnerHTML: m }),
+      Object.prototype.toString.call(item) === "[object Object]" && item.addon ? _react2.default.createElement(
+        "span",
+        {
+          style: {
+            color: "#aaa",
+            fontSize: "75%",
+            float: "right",
+            marginTop: 4
+          } },
+        item.addon
+      ) : null
+    );
+  }
 };
 exports.default = Suggestions;
