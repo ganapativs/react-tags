@@ -5,7 +5,7 @@ import TestBackend from "react-dnd-test-backend";
 import { shallow, mount, render } from "enzyme";
 import sinon from "sinon";
 import TestUtils from "react-addons-test-utils";
-import noop from "lodash/noop";
+import noop from "lodash.noop";
 import Tag from "../lib/Tag";
 
 function wrapInTestContext(DecoratedComponent) {

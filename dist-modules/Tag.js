@@ -16,7 +16,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDnd = require("react-dnd");
 
-var _lodash = require("lodash");
+var _lodash = require("lodash.flow");
+
+var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -160,4 +162,4 @@ Tag.defaultProps = {
   labelField: "text",
   readOnly: false
 };
-exports.default = (0, _lodash.flow)((0, _reactDnd.DragSource)(ItemTypes.TAG, tagSource, dragSource), (0, _reactDnd.DropTarget)(ItemTypes.TAG, tagTarget, dropCollect))(Tag);
+exports.default = (0, _lodash2.default)((0, _reactDnd.DragSource)(ItemTypes.TAG, tagSource, dragSource), (0, _reactDnd.DropTarget)(ItemTypes.TAG, tagTarget, dropCollect))(Tag);

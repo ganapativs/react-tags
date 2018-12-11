@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { shallow, mount, render } from "enzyme";
 import { spy } from "sinon";
 import Suggestions from "../lib/Suggestions";
-import noop from "lodash/noop";
+import noop from "lodash.noop";
 
 function mockItem(overrides) {
   const defaults = {
