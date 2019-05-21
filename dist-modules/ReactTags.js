@@ -80,7 +80,7 @@ var ReactTags = function (_React$Component) {
       }
 
       return suggestions.filter(function (item) {
-        return (Object.prototype.toString.call(item) === "[object Object]" ? item.text : item).toLowerCase().indexOf(query.toLowerCase()) === 0;
+        return (Object.prototype.toString.call(item) === "[object Object]" ? item.text : item).toLowerCase().indexOf(query.toLowerCase()) >= 0;
       });
     }, _this.handleDelete = function (i) {
       var _this$props = _this.props,
